@@ -310,7 +310,3 @@ def framework_prompt_md():
 if __name__ == '__main__':
     (ROOT / 'README.md').write_text(build(), encoding='utf-8', newline='\n')
     print('README.md: общий промт обновлён')
-    arcade = GAMES_DIR / 'ArcadeJS'
-    if arcade.exists():
-        (arcade / 'PROMPT.md').write_text(framework_prompt_md(), encoding='utf-8', newline='\n')
-        print('ArcadeJS/PROMPT.md: обновлён')
