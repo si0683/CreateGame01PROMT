@@ -290,6 +290,25 @@ def build():
 '''
 
 
+def framework_prompt_md():
+    """PROMPT.md для репозитория ArcadeJS: только промт «любая игра», без шаблонов."""
+    body = '<!--' + ARCADE_PROMPT.split('<!--', 1)[1]
+    body = body.replace(' Для гарантированного результата есть промт 2 ниже.', '')
+    head = (
+        '# Промт: любая игра на ArcadeJS\n\n'
+        'Шаблон промта для быстрой разработки: ученик (или вы) меняет строки «МОЯ ИГРА» — название, идею, управление и мир, '
+        'а нейросеть (Qwen, ChatGPT, GigaChat, DeepSeek…) пишет игру на ArcadeJS. Получается 3 файла — HTML, CSS, JS — для CodePen. '
+        'Скопируйте промт **одной кнопкой** (два квадратика в правом верхнем углу блока).\n\n'
+        'Полный справочник движка — [AI.md](AI.md), примеры — [examples](examples).\n\n'
+        '<!-- Файл создаётся скриптом CreateGame01PROMT/tools/build.py (D:\\02GameBrowser\\CreateGame01PROMT) — правьте там. -->\n\n'
+    )
+    return head + body
+
+
 if __name__ == '__main__':
     (ROOT / 'README.md').write_text(build(), encoding='utf-8', newline='\n')
     print('README.md: общий промт обновлён')
+    arcade = GAMES_DIR / 'ArcadeJS'
+    if arcade.exists():
+        (arcade / 'PROMPT.md').write_text(framework_prompt_md(), encoding='utf-8', newline='\n')
+        print('ArcadeJS/PROMPT.md: обновлён')
