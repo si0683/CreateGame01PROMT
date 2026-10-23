@@ -1,4 +1,4 @@
-"""Собирает README.md — промты урока «Создаём игру»: любая игра на ArcadeJS и 7 готовых игр.
+"""Собирает README.md — промт урока «Создаём игру»: 7 готовых игр из шаблонов.
 
 Запускать после любого изменения игр (их LAB или PROMPT_QWEN.md):
 
@@ -31,7 +31,7 @@ GAMES = [
 ARCADE_VERSION = '1.1.0'
 ARCADE = f'https://cdn.jsdelivr.net/gh/si0683/ArcadeJS@{ARCADE_VERSION}'
 
-# Промт 1: любая игра на фреймворке ArcadeJS (главный). ARCADE_URL заменяется адресом версии
+# Промт «любая игра на ArcadeJS» — только для PROMPT.md репозитория ArcadeJS, в README не входит.
 ARCADE_PROMPT = '''# Промты для урока: создаём игру
 
 Здесь два промта для Qwen (или другой нейросети):
@@ -166,10 +166,7 @@ def build():
 </details>''')
     details = '\n\n'.join(details)
 
-    return ARCADE_PROMPT + f'''
----
-
-# Промт 2: готовая игра из шаблона
+    return f'''# Промт для Qwen: готовая игра из шаблона
 
 Один промт на все семь готовых игр. Ученик выбирает игру и придумывает ей название — меняет **две строки** в начале промта, а Qwen сам берёт готовый шаблон нужной игры. Скопируйте промт **одной кнопкой** (два квадратика в правом верхнем углу блока).
 
@@ -308,5 +305,7 @@ def framework_prompt_md():
 
 
 if __name__ == '__main__':
-    (ROOT / 'README.md').write_text(build(), encoding='utf-8', newline='\n')
-    print('README.md: общий промт обновлён')
+    text = build()
+    (ROOT / 'README.md').write_text(text, encoding='utf-8', newline='\n')
+    (ROOT / 'PROMPT_QWEN.md').write_text(text, encoding='utf-8', newline='\n')
+    print('README.md и PROMPT_QWEN.md: промт обновлён')
